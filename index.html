@@ -1,70 +1,54 @@
+
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Calculator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <script>
-      if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
-         // Redirect or display a message for desktop users
-         window.location = "https://example.com/mobile-only-page";
-      }
-    </script>
-  </head>
-  <body>
-    <div class="calculator">
-      <div class="display">
-        <input type="text" id="result" value="0" readonly>
-      </div>
-      <div class="buttons">
-        <button class="operator" id="add">+</button>
-        <button class="operator" id="subtract">-</button>
-        <button class="operator" id="multiply">&times;</button>
-        <button class="operator" id="divide">&divide;</button>
-        <button class="number" id="seven">7</button>
-        <button class="number" id="eight">8</button>
-        <button class="number" id="nine">9</button>
-        <button class="number" id="four">4</button>
-        <button class="number" id="five">5</button>
-        <button class="number" id="six">6</button>
-        <button class="number" id="one">1</button>
-        <button class="number" id="two">2</button>
-        <button class="number" id="three">3</button>
-        <button class="number" id="zero">0</button>
-        <button class="number" id="decimal">.</button>
-        <button id="clear">C</button>
-        <button id="equals">=</button>
-      </div>
-    </div>
-    <button id="btnAdd" style="display:none;">Add to Home Screen</button>
-    <script>
-      let deferredPrompt;
-      const btnAdd = document.getElementById('btnAdd');
-
-      window.addEventListener('beforeinstallprompt', (e) =>
-      {
-e.preventDefault();
-deferredPrompt = e;
-// Update UI notify the user they can add to home screen
-btnAdd.style.display = 'block';
-});
-btnAdd.addEventListener('click', (e) => {
-    // hide our user interface that shows our A2HS button
-    btnAdd.style.display = 'none';
-    // Show the prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the A2HS prompt');
-      } else {
-        console.log('User dismissed the A2HS prompt');
-      }
-      deferredPrompt = null;
+<head>
+  <title>My Website</title>
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+       // Redirect or display a message for desktop users
+       window.location = "https://example.com/mobile-only-page";
+    }
+  </script>
+</head>
+<body>
+  <h1>Welcome to my website</h1>
+  
+  <button id="add-to-home-screen" style="display:none;">Add to Home Screen</button>
+  
+  <script>
+    let deferredPrompt;
+    const addToHomeScreenButton = document.getElementById('add-to-home-screen');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent Chrome 67 and earlier from showing the prompt automatically
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Show the button
+      addToHomeScreenButton.style.display = 'block';
     });
-  });
-</script>
-<script src="script.js"></script>
+
+    addToHomeScreenButton.addEventListener('click', (e) => {
+      // Hide the button
+      addToHomeScreenButton.style.display = 'none';
+      // Show the prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+    });
+    
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('App was installed.', evt);
+    });
+  </script>
 </body>
 </html>
