@@ -6,7 +6,7 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <h1>Welcome to My Web</h1>
+  <h1>Welcome to My Guys</h1>
 
   <button id="add-to-home-screen" style="display:none;">Add to Home Screen</button>
 
@@ -25,6 +25,7 @@
     const addToHomeScreenButton = document.getElementById('add-to-home-screen');
     
     window.addEventListener('beforeinstallprompt', (e) => {
+       console.log('beforeinstallprompt event triggered');
       e.preventDefault();
       deferredPrompt = e;
       addToHomeScreenButton.style.display = 'block';
