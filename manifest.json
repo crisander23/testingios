@@ -43,7 +43,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "https://crisander23.github.io/testingios/",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/"
